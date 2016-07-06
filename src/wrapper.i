@@ -52,7 +52,7 @@
 /* end citation */
 
 %inline %{
-  void pylis_initailize(int argc, char *argv[]) {
+  void pylis_initailize(int argc, char **argv) {
     lis_initialize(&argc,&argv);
   }
   void pylis_finalize() { // Just for naming
@@ -73,5 +73,8 @@
     lis_matrix_set_size(K, N,0);
     lis_matrix_set_csr(nnz,ptr,index,value, K);
     lis_matrix_assemble(K);
+
+    
+    lis_matrix_destroy(K);
   }
 %}
