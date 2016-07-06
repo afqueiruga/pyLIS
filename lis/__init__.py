@@ -1,2 +1,2 @@
-import wrapper as wr
+import lis_wrapper as wr
 

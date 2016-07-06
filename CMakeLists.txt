@@ -46,13 +46,13 @@ find_package(PythonLibs)
 include_directories(${PYTHON_INCLUDE_PATH})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 set_source_files_properties(src/wrapper.i PROPERTIES SWIG_FLAGS "-includeall")
-swig_add_module(pywraplis python src/wrapper.i ${SOURCES})
-swig_link_libraries(pywraplis ${PYTHON_LIBRARIES} lib_lis)
+swig_add_module(lis_wrapper python src/wrapper.i ${SOURCES})
+swig_link_libraries(lis_wrapper ${PYTHON_LIBRARIES} lib_lis)
 
 #
 # Install
 #
 set( PY_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/pylis)
-install(TARGETS ${SWIG_MODULE_pywraplis_REAL_NAME} DESTINATION ${PY_INSTALL_DIR} OPTIONAL)
+install(TARGETS ${SWIG_MODULE_lis_wrapper_REAL_NAME} DESTINATION ${PY_INSTALL_DIR} OPTIONAL)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lis_wrapper.py DESTINATION ${PY_INSTALL_DIR})
 install(FILES ${PY_FILES} DESTINATION ${PY_INSTALL_DIR})
