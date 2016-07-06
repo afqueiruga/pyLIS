@@ -9,6 +9,17 @@
   import_array();
   //import_managed();
 %}
+%apply (int DIM1, int* IN_ARRAY1) {
+  (int Nptr,LIS_INT * ptr),
+  (int Nindex,LIS_INT * index)
+ };
+%apply (int DIM1, double* IN_ARRAY1) {
+  (int Nvalue,LIS_SCALAR * value),
+    (int NR, LIS_SCALAR * Rin)
+};
+%apply (int DIM1, double* INPLACE_ARRAY1) {
+  (int Nx,LIS_SCALAR * xin)
+};
 
 /* argv typemap from swig's documentation
    http://www.swig.org/Doc1.3/Python.html
@@ -51,9 +62,9 @@
 			   int Nptr,LIS_INT * ptr, int Nindex,LIS_INT * index,
 			   int Nvalue,LIS_SCALAR * value, 
 			   /* x. Initial condition and output */
-			   int Nx, LIS_SCALAR * x,
+			   int Nx, LIS_SCALAR * xin,
 			   /* R */
-			   int NR, LIS_SCALAR * R) {
+			   int NR, LIS_SCALAR * Rin) {
     LIS_MATRIX K;
     LIS_VECTOR x, R;
 
@@ -61,6 +72,6 @@
     lis_matrix_create(0, &K);
     lis_matrix_set_size(K, N,0);
     lis_matrix_set_csr(nnz,ptr,index,value, K);
-    lis_matrix_assemble(A);
+    lis_matrix_assemble(K);
   }
 %}
