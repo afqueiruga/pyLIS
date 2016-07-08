@@ -68,12 +68,12 @@
 			   int NR, LIS_SCALAR * Rin) {
     LIS_MATRIX K;
     LIS_VECTOR x, R;
-
+    LIS_SOLVER solver;
+    
     int N=Nptr-1, nnz=Nindex;
     /* Copy the data because LIS likes to free it */
     LIS_INT *cptr, *cindex;
     LIS_SCALAR *cvalue, *cxin, *cRin;
-
 #define dup(x,y,size) {\
       (x) = malloc( (size) );\
       memcpy( (x), (y), (size) );\
@@ -84,16 +84,28 @@
     dup(cxin, xin, nnz*sizeof(LIS_SCALAR));
     dup(cRin, Rin, nnz*sizeof(LIS_SCALAR));
 #undef dup
-    
+
+    // Set up 
     lis_matrix_create(0, &K);
     lis_matrix_set_size(K, N,0);
     lis_matrix_set_csr(nnz,cptr,cindex,cvalue, K);
     lis_matrix_assemble(K);
 
+    //Set up vector objects
     lis_vector_create(0, &x);
     lis_vector_set_size(x, N,0);
+    lis_vector_scatter(xin, x);
     lis_vector_create(0, &R);
     lis_vector_set_size(R, N,0);
+    lis_vector_scatter(Rin, R);
+    
+    // Solve
+    lis_solver_create(&solver);
+    lis_solver_set_optionC(solver);
+    lis_solve(K,R, x, solver);
+
+    // Retrieve the result
+    lis_vector_gather(x, xin);
     
     lis_matrix_destroy(K); 
     lis_vector_destroy(x);
