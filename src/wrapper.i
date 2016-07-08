@@ -52,7 +52,7 @@
 /* end citation */
 
 %inline %{
-  void pylis_initailize(int argc, char **argv) {
+  void pylis_initialize(int argc, char **argv) {
     lis_initialize(&argc,&argv);
   }
   void pylis_finalize() { // Just for naming
