@@ -73,7 +73,7 @@
     int N=Nptr-1, nnz=Nindex;
     /* Copy the data because LIS likes to free it */
     LIS_INT *cptr, *cindex;
-    LIS_SCALAR *cvalue, *cxin, *cRin;
+    LIS_SCALAR *cvalue; //, *cxin, *cRin;
 #define dup(x,y,size) {\
       (x) = malloc( (size) );\
       memcpy( (x), (y), (size) );\
@@ -81,8 +81,8 @@
     dup(cptr, ptr, Nptr*sizeof(LIS_INT));
     dup(cindex, index, nnz*sizeof(LIS_INT));
     dup(cvalue, value, nnz*sizeof(LIS_SCALAR));
-    dup(cxin, xin, nnz*sizeof(LIS_SCALAR));
-    dup(cRin, Rin, nnz*sizeof(LIS_SCALAR));
+    /* dup(cxin, xin, nnz*sizeof(LIS_SCALAR)); */
+    /* dup(cRin, Rin, nnz*sizeof(LIS_SCALAR)); */
 #undef dup
 
     // Set up 
