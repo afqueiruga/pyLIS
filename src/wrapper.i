@@ -54,6 +54,7 @@
 
 %inline %{
   void pylis_initialize(int argc, char **argv) {
+    printf("pylis got %d %s\n",argc,argv[0]);
     lis_initialize(&argc,&argv);
   }
   void pylis_finalize() { // Just for naming
@@ -109,6 +110,7 @@
     
     lis_matrix_destroy(K); 
     lis_vector_destroy(x);
-    lis_vector_destroy(R); 
+    lis_vector_destroy(R);
+    lis_solver_destroy(solver);
   }
 %}
