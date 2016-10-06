@@ -30,8 +30,9 @@ include_directories(${EXTRA_INCLUDES})
 #
 # Set up lis
 #
-set(lis_path "${PROJECT_SOURCE_DIR}/../lis/" CACHE STRING "Path to lis")
-set(lis_lib_location "${lis_path}/src/.libs/liblis.a" CACHE STRING "Path to liblis.a for this architecture")
+set(lis_path "/home/afq/Research/Distribute/Stonedist" CACHE STRING "Path to lis")
+set(lis_lib_location "${lis_path}/lib/liblis.so") 
+
 add_library(lib_lis STATIC IMPORTED)
 set_property(TARGET lib_lis PROPERTY IMPORTED_LOCATION ${lis_lib_location})
 include_directories(${lis_path}/include/)
@@ -56,3 +57,5 @@ set( PY_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/pylis)
 install(TARGETS ${SWIG_MODULE_lis_wrapper_REAL_NAME} DESTINATION ${PY_INSTALL_DIR} OPTIONAL)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lis_wrapper.py DESTINATION ${PY_INSTALL_DIR})
 install(FILES ${PY_FILES} DESTINATION ${PY_INSTALL_DIR})
+#install(FILES ${lis_lib_location} DESTINATION ${PY_INSTALL_DIR})
+#install(FILES "${lis_lib_location}.0" DESTINATION ${PY_INSTALL_DIR})
